@@ -1,0 +1,76 @@
+<div class="container" *ngIf="survey">
+  <h2>Survey Details</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <mat-form-field class="title-field">
+        <input matInput type="text" placeholder="Title" formControlName="title" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="title-field">
+        <input matInput type="text" placeholder="Subtitle" formControlName="subtitle" />
+      </mat-form-field>
+    </div>
+    <!--create questions section-->
+    <h2>Questions</h2>
+    <div class="field-space">
+      <!--we should pick a spacing class standard-->
+
+      <ng-container formGroupName="questions">
+        <ng-container *ngFor="let question of questions; let idx=index">
+          <mat-expansion-panel [formGroupName]="idx" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-panel-title class="line-height-40px">
+                  <mat-icon class="line-height-40px margin-right-half-em">post_add</mat-icon>
+                  Question {{idx+1}}
+                  <button mat-icon-button (click)="handleInsertBeforeQuestion($event, idx)">
+                    <mat-icon>navigate_before</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="handleInsertAfterQuestion($event, idx)">
+                    <mat-icon>navigate_next</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="handleDeleteQuestion(idx)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-panel-title>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="field-space">
+              <mat-form-field class="title-field">
+                <input matInput placeholder="Question Code" formControlName="code" />
+              </mat-form-field>
+            </div>
+
+            <div class="field-space">
+              <mat-form-field class="title-field">
+                <input matInput formControlName="text" placeholder="Question Text" />
+              </mat-form-field>
+            </div>
+            <div class="field-space">
+              <mat-select placeholder="Category" class="question-dropdown" formControlName="category">
+                <mat-option value="End Users">End Users</mat-option>
+                <mat-option value="Engagement">Engagement</mat-option>
+                <mat-option value="Foundations">Foundation</mat-option>
+                <mat-option value="Impediments">Impediments</mat-option>
+                <mat-option value="Product">Product</mat-option>
+                <mat-option value="Scaling">Scaling</mat-option>
+                <mat-option value="Team">Team</mat-option>
+                <mat-option value="Technical">Technical</mat-option>
+              </mat-select>
+            </div>
+          </mat-expansion-panel>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="field-space">
+      <button mat-button color="secondary" (click)="handleAddNewQuestion()">
+        New Question
+      </button>
+      <button mat-raised-button type="submit" [disabled]="!form.valid" color="primary">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
