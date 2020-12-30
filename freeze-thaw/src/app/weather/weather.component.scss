@@ -1,0 +1,38 @@
+.image {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.image-small {
+    width: 20%;
+    padding: 0.5em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container {
+    padding: 2em;
+}
+
+.page-header {
+    padding-bottom: 0.5em;
+}
+
+button {
+    margin-bottom: 2em;
+}
+
+.border-top {
+    margin-top: 2em;
+}
+
+.display-4 a {
+    text-decoration: none;
+    color: #000000;
+}
+    @media screen and (max-width: 480px) {
+  .psa {
+    padding-top: 1em;
+  }
+}

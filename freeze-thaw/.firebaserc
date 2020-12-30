@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "freeze-thaw"
+  },
+  "targets": {
+    "freeze-thaw": {
+      "hosting": {
+        "freeze-thaw": [
+          "freeze-thaw"
+        ]
+      }
+    }
+  }
+}

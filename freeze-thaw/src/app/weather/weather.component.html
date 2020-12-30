@@ -1,0 +1,89 @@
+<div class="container lead">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="text-center display-4"><a href="/">Freeze/Thaw Checker for Trails</a></h1>
+            <form [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPIXU(weatherSearchForm.value)">
+                <div class="form-group">
+                    <input class="form-control" type="text" id="weatherLocation" aria-describedby="weatherLocation"
+                        placeholder="Please input a city or zip code" formControlName="location" />
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-md">
+                        Submit
+                    </button>
+                </div>
+            </form>
+            <div
+                *ngIf="this.weatherData?.current.temperature !== null && this.weatherData?.current.temperature < 26 && this.weatherData?.current.cloudcover > 49 && this.weatherData?.current.precip === 0;">
+                <h1 class="text-center">👍🥾🚵‍♂️</h1>
+                <h3 class="text-success">The current weather conditions show that you are safe from freeze/thaw in {{
+                    this.weatherData?.location.name }}. Enjoy!
+                    <img class="image-small" src="{{this.weatherData?.current.weather_icons}}" />
+                </h3>
+            </div>
+            <div
+                *ngIf="this.weatherData?.current.temperature !== null && this.weatherData?.current.temperature < 26 && this.weatherData?.current.cloudcover < 49 && this.weatherData?.current.precip === 0;">
+                <h1 class="text-center">😬😬😬</h1>
+                <h3 class="text-warning">Use caution! While the temperature and precipitation are right, you may
+                    experience freeze/thaw in {{ this.weatherData?.location.name }} due to low cloud cover.
+                    <img class="image-small" src="{{this.weatherData?.current.weather_icons}}" />
+                </h3>
+            </div>
+            <div *ngIf="this.weatherData?.current.temperature !== null && this.weatherData?.current.temperature > 25;">
+                <h1 class="text-center">👎🚫👎🚫👎🚫👎🚫</h1>
+                <h2 class="text-danger">Stay off the trails! Don't be that guy!</h2>
+                <h5>There is a high risk of freeze/thaw in {{this.weatherData?.location.name }}.</h5>
+                <img class="image" src="../../assets/bad-biker.jpg" />
+            </div>
+            <div *ngIf="this.weatherData?.current.temperature !== null;">
+                <h3 class="text-center my-4">Weather Details:</h3>
+                <p class="text-center">
+                    <strong>Outside Temperature:</strong> {{ this.weatherData?.current.temperature }}&deg;F
+                </p>
+                <p class="text-center">
+                    <strong>Current Cloud Cover:</strong>
+                    {{ this.weatherData?.current.cloudcover }}%
+                </p>
+                <p class="text-center">
+                    <strong>Current Precipitation:</strong>
+                    {{ this.weatherData?.current.precip }}
+                </p>
+                <p class="text-center">
+                    <strong>Forecast:</strong>
+                    {{this.weatherData?.current.weather_descriptions}}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="psa alert alert-dark">
+                <h4>Why was this created?</h4>
+                <p>This tool is meant to help us respect freeze/thaw season. If we fail to do so we risk ruining the
+                    off-road trails we so dearly love. If you have any doubts whatsoever about freeze/thaw, consult
+                    this tool before heading to the trail.</p>
+
+                <p><em>More information on <a
+                            href="http://www.combomtb.com/blog/2014/12/5/freezethaw-cycles-explained">freeze/thaw</a></em>.
+                </p>
+                <h4>How does this tool work?</h4>
+                <p>Trails are considered <span class="text-success">Good</span> if they meet all of the below
+                    conditions.</p>
+                <ul>
+                    <li>Current outside temperature that is < 25&deg;F degrees. This is important to ensure the soil is
+                            firm.</li>
+                    <li>Current cloud cover that is > 50%. This is important to ensure the sun does not warm up
+                        the
+                        soil.
+                    </li>
+                    <li>Current precipitation = 0. Gotta keep it dry! </li>
+                </ul>
+                Trails are considered <span class="text-danger">Bad</span> if they do not meet all of the
+                aforementioned
+                conditions.
+            </div>
+        </div>
+    </div>
+    <footer class="border-top">
+        <p>This tool uses the <a href="https://weatherstack.com/">weatherstack API</a></p>
+        <p>Project by <a href="https://jessbrock.com">Jess Brock</a></p>
+    </footer>
+</div>
